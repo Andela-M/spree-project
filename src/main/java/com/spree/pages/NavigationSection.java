@@ -2,12 +2,13 @@ package com.spree.pages;
 
 import org.openqa.selenium.By;
 import testframework.core.actions.ElementActions;
+import testframework.core.waits.WaitUtils;
 
 public class NavigationSection extends BaseSpreePage {
 
     protected By shopAllButtonLocator = By.xpath("//a[contains(@class,'header--nav-link')][.//span[normalize-space()='Shop All']]");
-    protected By loginPageButtonLocator = By.cssSelector("button[data-action*='slideover-account#toggle']");
-    protected By signUpLocator = By.linkText("Sign Up");
+    protected By loginPageButtonLocator = By.xpath("//button[contains(@data-action,'slideover-account')][not(@aria-label)][not(@id)]");
+    protected By signUpLocator = By.cssSelector("a[href='/user/sign_up']");
     protected By signUpEmailLocator = By.id("user_email");
     protected By signUpPasswordLocator = By.id("user_password");
     protected By signUpPasswordConfirmLocator = By.id("user_password_confirmation");
@@ -32,8 +33,19 @@ public class NavigationSection extends BaseSpreePage {
     }
 
     public void clickLogin() {
+        // Wait for button to be ready (page fully loaded)
+        WaitUtils.waitForClickable(loginPageButtonLocator);
         ElementActions.click(loginPageButtonLocator);
-        ElementActions.isVisible(loginModalLocator); // Wait for modal to appear
+        // Wait for turbo-frame modal to appear first
+        WaitUtils.waitForVisible(loginModalLocator);
+        // Give turbo-frame time to fully load its content
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // Now wait for the email field to be visible
+        WaitUtils.waitForVisible(loginEmailLocator);
     }
 
     public void clickSignUp() {

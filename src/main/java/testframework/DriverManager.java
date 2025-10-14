@@ -51,7 +51,8 @@ public class DriverManager {
                     firefoxOptions.addArguments("--headless");
                     LOGGER.info("Starting Firefox browser in headless mode...");
                 } else {
-                    LOGGER.info("Starting Firefox browser in normal mode...");
+                    LOGGER.info("Starting Firefox browser in private mode...");
+                    firefoxOptions.addArguments("-private");
                 }
 
                 startedDriver = new Driver(new FirefoxDriver(firefoxOptions), defaultTimeoutSeconds);
@@ -63,7 +64,8 @@ public class DriverManager {
                     edgeOptions.addArguments("--headless");
                     LOGGER.info("Starting Edge browser in headless mode...");
                 } else {
-                    LOGGER.info("Starting Edge browser in normal mode...");
+                    LOGGER.info("Starting Edge browser in InPrivate mode...");
+                    edgeOptions.addArguments("--inprivate");
                 }
 
                 startedDriver = new Driver(new EdgeDriver(edgeOptions), defaultTimeoutSeconds);
