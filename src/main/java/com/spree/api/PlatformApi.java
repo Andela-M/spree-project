@@ -41,10 +41,19 @@ public class PlatformApi extends BaseApiService {
                 .path("data.id");
     }
 
-    public Response listUsers(String bearerToken) {
+    public Response getUserByIdRaw(String id) {
+        String adminToken = TokenClient.getPlatformToken();
+
         return request()
-                .auth().oauth2(bearerToken)
+                .auth().oauth2(adminToken)
                 .when()
-                .get("/users");
+                .get("/users/" + id)
+                .then()
+                .statusCode(200)
+                .extract().response();
     }
+
+
+
+
 }

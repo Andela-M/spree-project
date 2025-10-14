@@ -9,15 +9,22 @@ public final class TokenClient {
     private TokenClient() {
     }
 
-    public static String getStoreFrontToken(String username, String password) {
+    private static String STOREFRONT_TOKEN;
+    private static String PLATFORM_TOKEN;
+
+    public static synchronized String getStoreFrontToken(String username, String password) {
+        if (STOREFRONT_TOKEN != null) {
+            return STOREFRONT_TOKEN;
+        }
+
         String host = PropertiesManager.getConfigProperties()
                 .getProperty(FrameworkSettings.BASE_ESPREE_URL.getValue());
         String tokenPath = PropertiesManager.getConfigProperties()
                 .getProperty(FrameworkSettings.TOKEN_PATH.getValue());
 
-        return RestAssured.given()
-                .baseUri(host)            // host only
-                .basePath(tokenPath)      // path only
+        STOREFRONT_TOKEN = RestAssured.given()
+                .baseUri(host)
+                .basePath(tokenPath)
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("grant_type", "password")
                 .formParam("username", username)
@@ -27,18 +34,24 @@ public final class TokenClient {
                 .then()
                 .statusCode(200)
                 .extract().jsonPath().getString("access_token");
+
+        return STOREFRONT_TOKEN;
     }
 
-    public static String getPlatformToken() {
+    public static synchronized String getPlatformToken() {
+        if (PLATFORM_TOKEN != null) {
+            return PLATFORM_TOKEN;
+        }
+
         String host = PropertiesManager.getConfigProperties()
                 .getProperty(FrameworkSettings.BASE_ESPREE_URL.getValue());
         String tokenPath = PropertiesManager.getConfigProperties()
                 .getProperty(FrameworkSettings.TOKEN_PATH.getValue());
 
-        String clientId     = PlatformAdminToken.CLIENT_ID.value;
+        String clientId = PlatformAdminToken.CLIENT_ID.value;
         String clientSecret = PlatformAdminToken.CLIENT_SECRET.value;
 
-        return RestAssured.given()
+        PLATFORM_TOKEN = RestAssured.given()
                 .baseUri(host)
                 .basePath(tokenPath)
                 .contentType("application/x-www-form-urlencoded")
@@ -51,5 +64,7 @@ public final class TokenClient {
                 .then()
                 .statusCode(200)
                 .extract().jsonPath().getString("access_token");
+
+        return PLATFORM_TOKEN;
     }
 }
