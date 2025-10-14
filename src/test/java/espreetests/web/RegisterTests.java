@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import testframework.core.BaseWebTest;
 
-public class Register extends BaseWebTest {
+public class RegisterTests extends BaseWebTest {
 
     @Test
     void userIsAbleToRegister(){
@@ -17,7 +17,6 @@ public class Register extends BaseWebTest {
         navigationSection.enterSignUpPassword(password);
         navigationSection.enterSignUpPasswordConfirmation(password);
         navigationSection.clickSignUpButton();
-        Assertions.assertTrue(navigationSection.signUpSuccessMessageVisible());
-        System.out.println();
+        Assertions.assertTrue(navigationSection.isFlashMessageVisible(), "Sign up success message should be visible");
     }
 }

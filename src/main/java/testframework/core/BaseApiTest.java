@@ -2,6 +2,7 @@ package testframework.core;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import testframework.auth.TokenClient;
 
 public abstract class BaseApiTest {
 
@@ -12,6 +13,6 @@ public abstract class BaseApiTest {
 
     @BeforeAll
     public static void beforeAll() {
-
+        TokenClient.getPlatformToken();
     }
 }

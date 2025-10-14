@@ -1,7 +1,7 @@
 package testframework.core;
 
 import com.spree.pages.NavigationSection;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,11 +23,10 @@ public abstract class BaseWebTest {
     @BeforeEach
     void setUp() {
         navigationSection = new NavigationSection();
-
     }
 
-    @AfterAll
-    public static void afterAll() {
+    @AfterEach
+    void tearDown() {
         driver().quit();
     }
 }

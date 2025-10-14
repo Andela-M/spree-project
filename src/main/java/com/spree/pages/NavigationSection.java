@@ -6,8 +6,8 @@ import testframework.core.actions.ElementActions;
 public class NavigationSection extends BaseSpreePage {
 
     protected By shopAllButtonLocator = By.xpath("//a[contains(@class,'header--nav-link')][.//span[normalize-space()='Shop All']]");
-    protected By loginPageButtonLocator = By.cssSelector("div[class='hidden lg:flex'] button[data-action='click->slideover-account#toggle click@window->slideover-account#hide click->toggle-menu#hide touch->toggle-menu#hide'] svg");
-    protected By signUpLocator = By.cssSelector("button[data-action*='slideover-account#toggle']");
+    protected By loginPageButtonLocator = By.cssSelector("button[data-action*='slideover-account#toggle']");
+    protected By signUpLocator = By.linkText("Sign Up");
     protected By signUpEmailLocator = By.id("user_email");
     protected By signUpPasswordLocator = By.id("user_password");
     protected By signUpPasswordConfirmLocator = By.id("user_password_confirmation");
@@ -15,14 +15,16 @@ public class NavigationSection extends BaseSpreePage {
     protected By loginEmailLocator = By.id("user_email");
     protected By loginPasswordLocator = By.id("user_password");
     protected By loginButtonLocator = By.cssSelector("#login-button");
-    protected By successfulSignUpMessage = By.cssSelector("p[class='text-sm lg:text-base font-medium text-center uppercase text-text flash-message']");
+    protected By flashMessage = By.cssSelector("p.flash-message");
+    protected By loginModalLocator = By.cssSelector("turbo-frame#login");
+    protected By signupFormLocator = By.id("user_email");
 
     public NavigationSection() {
         super("");
     }
 
-    public void shopAllIsVisible() {
-        ElementActions.isVisible(shopAllButtonLocator);
+    public boolean isShopAllVisible() {
+        return ElementActions.isVisible(shopAllButtonLocator);
     }
 
     public void clickShopAll() {
@@ -31,6 +33,7 @@ public class NavigationSection extends BaseSpreePage {
 
     public void clickLogin() {
         ElementActions.click(loginPageButtonLocator);
+        ElementActions.isVisible(loginModalLocator); // Wait for modal to appear
     }
 
     public void clickSignUp() {
@@ -53,15 +56,6 @@ public class NavigationSection extends BaseSpreePage {
         ElementActions.click(signUpButtonLocator);
     }
 
-    public boolean signUpSuccessMessageVisible(){
-        try{
-            ElementActions.isVisible(successfulSignUpMessage);
-            return true;
-        } catch (Exception e){
-            return false;
-        }
-    }
-
     public void enterLoginEmail(String email){
         ElementActions.type(loginEmailLocator, email);
     }
@@ -72,5 +66,9 @@ public class NavigationSection extends BaseSpreePage {
 
     public void clickLoginButton() {
         ElementActions.click(loginButtonLocator);
+    }
+
+    public boolean isFlashMessageVisible(){
+        return ElementActions.isVisible(flashMessage);
     }
 }

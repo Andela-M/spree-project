@@ -39,7 +39,8 @@ public class DriverManager {
                     LOGGER.info("Starting Chrome browser in headless mode...");
                     chromeOptions.addArguments("--headless");
                 } else {
-                    LOGGER.info("Starting Chrome browser in normal mode...");
+                    LOGGER.info("Starting Chrome browser in incognito mode...");
+                    chromeOptions.addArguments("--incognito");
                 }
                 startedDriver = new Driver(new ChromeDriver(chromeOptions), defaultTimeoutSeconds);
                 break;

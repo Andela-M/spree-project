@@ -19,6 +19,7 @@ public class PlatformApi extends BaseApiService {
                         .basePath(PropertiesManager.getConfigProperties().getProperty(FrameworkSettings.PLATFORM_PATH.getValue()))
                         .accept("application/vnd.api+json")
                         .contentType("application/json")
+                        .log().all()
         );
     }
 
@@ -27,33 +28,67 @@ public class PlatformApi extends BaseApiService {
         UserEnvelope(User user) { this.user = user; }
     }
 
-    public String createUserAndExtractId(User userBody) {
+    public Response createUser(User userBody) {
         String adminToken = TokenClient.getPlatformToken();
 
-        return request()
+        Response response = request()
                 .auth().oauth2(adminToken)
                 .body(new UserEnvelope(userBody))
                 .when()
-                .post("/users")
-                .then()
-                .statusCode(201)
-                .extract()
-                .path("data.id");
+                .post("/users");
+
+        System.out.println("CREATE user response status: " + response.getStatusCode());
+        System.out.println("CREATE user response body: " + response.asString());
+
+        return response;
     }
 
-    public Response getUserByIdRaw(String id) {
+    public String createUserAndExtractId(User userBody) {
+        Response response = createUser(userBody);
+        return response.path("data.id");
+    }
+
+    public Response getUserById(String id) {
         String adminToken = TokenClient.getPlatformToken();
 
-        return request()
+        Response response = request()
                 .auth().oauth2(adminToken)
                 .when()
-                .get("/users/" + id)
-                .then()
-                .statusCode(200)
-                .extract().response();
+                .get("/users/" + id);
+
+        System.out.println("GET user response status: " + response.getStatusCode());
+        System.out.println("GET user response body: " + response.asString());
+
+        return response;
     }
 
+    public Response updateUser(String id, User userBody) {
+        String adminToken = TokenClient.getPlatformToken();
 
+        Response response = request()
+                .auth().oauth2(adminToken)
+                .body(new UserEnvelope(userBody))
+                .when()
+                .patch("/users/" + id);
 
+        System.out.println("UPDATE user response status: " + response.getStatusCode());
+        System.out.println("UPDATE user response body: " + response.asString());
+
+        return response;
+    }
+
+    public Response deleteUser(String id) {
+        String adminToken = TokenClient.getPlatformToken();
+
+        Response response = request()
+                .auth().oauth2(adminToken)
+                .when()
+                .delete("/users/" + id);
+
+        System.out.println("DELETE user response status: " + response.getStatusCode());
+        System.out.println("DELETE user response body: " + response.asString());
+
+        return response;
+    }
 
 }
