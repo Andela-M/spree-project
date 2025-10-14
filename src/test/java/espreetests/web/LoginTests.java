@@ -3,18 +3,25 @@ package espreetests.web;
 import com.spree.api.PlatformApi;
 import com.spree.api.User;
 import espreetests.helper.UserFields;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import testframework.core.BaseWebTest;
 
+@Epic("Spree E-Commerce Web UI")
+@Feature("User Authentication")
+@Story("Customer Login Flow")
 public class LoginTests extends BaseWebTest {
 
     PlatformApi platformApi = new PlatformApi();
 
     @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Verify user login via web UI - create user via API, then test login form submission and success message")
+    @Issue("SPREE-WEB-002")
+    @TmsLink("TC-WEB-LOGIN-001")
     void customerIsAbleToLogin() {
-        // Setup: Create user via API
         String email = UserFields.userEmail();
         String password = UserFields.userPassword();
 
@@ -29,14 +36,12 @@ public class LoginTests extends BaseWebTest {
 
         System.out.println("Created user with email: " + email);
 
-        // Test: Login via UI
         navigationSection.navigate();
         navigationSection.clickLogin();
         navigationSection.enterLoginEmail(email);
         navigationSection.enterLoginPassword(password);
         navigationSection.clickLoginButton();
 
-        // Verify: Check for login success message
         Assertions.assertTrue(navigationSection.isFlashMessageVisible(), "Login success message should be visible");
     }
 }

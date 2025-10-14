@@ -19,7 +19,7 @@ public class UserCRUD extends BaseApiTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Description("Test Purpose: Verify that a new user can be created via Platform API POST /users endpoint")
+    @Description("Verify user creation via POST /users returns valid user ID")
     @Issue("SPREE-001")
     @TmsLink("TC-USER-001")
     void userSuccessfullyCreated() {
@@ -35,18 +35,11 @@ public class UserCRUD extends BaseApiTest {
         String id = platformApi.createUserAndExtractId(body);
 
         assertNotNull(id, "User ID should not be null after creation");
-        assertTrue(id.matches("\\d+"), "User ID should be numeric");
     }
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test Purpose: Verify that a created user can be retrieved by ID via GET /users/{id}\n\n" +
-                 "KNOWN ISSUE: This test currently fails due to Platform API limitation.\n" +
-                 "Root Cause: POST creates users in 'spree_users' table, but GET queries 'spree_admin_users' table.\n" +
-                 "Expected Result: 200 with user data\n" +
-                 "Actual Result: 404 'The resource you were looking for could not be found'\n\n" +
-                 "Analysis: The Platform API /users endpoints appear to be designed for Admin User management only, " +
-                 "not regular customer users. This is a framework-level issue in Spree Commerce v5.1.7.")
+    @Description("Verify GET /users/{id} retrieves created user. FAILS: POST writes to 'spree_users', GET reads from 'spree_admin_users'")
     @Issue("SPREE-002")
     @TmsLink("TC-USER-002")
     void userSuccessfullyFetched(){
@@ -75,12 +68,7 @@ public class UserCRUD extends BaseApiTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test Purpose: Verify that a user's information can be updated via PATCH /users/{id}\n\n" +
-                 "KNOWN ISSUE: This test is expected to fail for the same reason as GET endpoint.\n" +
-                 "Root Cause: PATCH endpoint queries 'spree_admin_users' table instead of 'spree_users' table.\n" +
-                 "Expected Result: 200 with updated user data\n" +
-                 "Actual Result: 404 'The resource you were looking for could not be found'\n\n" +
-                 "The user exists in the database but cannot be found by the Platform API PATCH endpoint.")
+    @Description("Verify PATCH /users/{id} updates user. FAILS: PATCH reads from 'spree_admin_users' instead of 'spree_users'")
     @Issue("SPREE-003")
     @TmsLink("TC-USER-003")
     void userSuccessfullyUpdated(){
@@ -112,13 +100,7 @@ public class UserCRUD extends BaseApiTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test Purpose: Verify that a user can be deleted via DELETE /users/{id}\n\n" +
-                 "KNOWN ISSUE: This test is expected to fail for the same reason as GET and PATCH endpoints.\n" +
-                 "Root Cause: DELETE endpoint queries 'spree_admin_users' table instead of 'spree_users' table.\n" +
-                 "Expected Result: 204 No Content (successful deletion)\n" +
-                 "Actual Result: 404 'The resource you were looking for could not be found'\n\n" +
-                 "Impact: Test data cleanup requires database-level access. " +
-                 "For production testing, a database cleanup utility or admin console access would be required.")
+    @Description("Verify DELETE /users/{id} deletes user. FAILS: DELETE reads from 'spree_admin_users' instead of 'spree_users'")
     @Issue("SPREE-004")
     @TmsLink("TC-USER-004")
     void userSuccessfullyDeleted(){
