@@ -15,8 +15,8 @@ public class StoreFrontApi extends BaseApiService {
         setRequestSpecification(
                 given()
                         .baseUri(getServiceUrl())
-                        .accept("application/json")
-                        .contentType("application/json")
+                        .accept("application/vnd.api+json")
+                        .contentType("application/vnd.api+json")
                         .log().all()
         );
 
