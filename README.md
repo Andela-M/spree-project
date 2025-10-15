@@ -24,6 +24,15 @@ The framework uses a hybrid testing approach, combining API calls for efficient 
 
 The Spree demo application must be running before executing tests.
 
+The Spree demo is a custom configured db version of the https://github.com/spree/spree_starter Spree Started
+
+Download the app from this URL: 
+https://we.tl/t-aEAhjioP1A
+
+The app was uploaded to WeTransfer, because it contains files too big to push to Github.
+
+Unzip and then:
+
 #### Windows
 ```powershell
 cd spree_starter
@@ -35,8 +44,7 @@ powershell -ExecutionPolicy Bypass -File .\run-demo.ps1
 #### Mac/Linux
 ```bash
 cd spree_starter
-chmod +x run-demo.sh
-./run-demo.sh
+chmod +x run-demo.sh && ./run-demo.sh
 ```
 
 The application will be available at: **http://localhost:3000**
