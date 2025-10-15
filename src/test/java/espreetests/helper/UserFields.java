@@ -13,6 +13,6 @@ public final class UserFields {
     }
 
     public static String userPassword(){
-        return faker.internet().password(6, 128, false, false, false);
+        return faker.internet().password(6, 128, false, true, false);
     }
 }

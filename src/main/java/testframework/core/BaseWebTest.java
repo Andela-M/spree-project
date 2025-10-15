@@ -27,6 +27,6 @@ public abstract class BaseWebTest {
 
     @AfterEach
     void tearDown() {
-        driver().quit();
+        DriverManager.quitDriver();
     }
 }
