@@ -66,11 +66,30 @@ platformApiUrl=http://localhost:3000/api/v2/platform
 ## Running Tests
 
 ### Run All Tests
+
+#### Windows (PowerShell)
+```powershell
+./mvnw.cmd clean test
+```
+
+#### Mac/Linux
 ```bash
 ./mvnw clean test
 ```
 
 ### Run Specific Test Class
+
+#### Windows (PowerShell)
+```powershell
+# API Tests
+./mvnw.cmd test -Dtest=UserCRUD
+
+# Web Tests
+./mvnw.cmd test -Dtest=LoginTests
+./mvnw.cmd test -Dtest=RegisterTests
+```
+
+#### Mac/Linux
 ```bash
 # API Tests
 ./mvnw test -Dtest=UserCRUD
@@ -81,6 +100,17 @@ platformApiUrl=http://localhost:3000/api/v2/platform
 ```
 
 ### Run Tests by Category
+
+#### Windows (PowerShell)
+```powershell
+# API Tests only
+./mvnw.cmd test -Dtest=espreetests.api.*
+
+# Web Tests only
+./mvnw.cmd test -Dtest=espreetests.web.*
+```
+
+#### Mac/Linux
 ```bash
 # API Tests only
 ./mvnw test -Dtest=espreetests.api.*
@@ -91,19 +121,80 @@ platformApiUrl=http://localhost:3000/api/v2/platform
 
 ## Allure Reports
 
-### Generate and View Report
-```bash
-# Generate report from test results
-allure-2.29.0/bin/allure generate target/allure-results --clean -o target/allure-report
+**IMPORTANT:** All commands below must be run from the `espree-project` directory.
 
-# Open report in browser
-allure-2.29.0/bin/allure open target/allure-report
+### Quick Start - View Existing Reports
+
+**The fastest way to view reports** (works immediately with existing test results):
+
+#### Windows (PowerShell)
+```powershell
+# Make sure you're in the project directory first
+cd espree-project
+
+# Serve the report
+./allure-2.29.0/bin/allure.bat serve target/allure-results
 ```
 
-### One-Command Report Generation
+#### Mac/Linux
+```bash
+# Make sure you're in the project directory first
+cd espree-project
+
+# Serve the report
+./allure-2.29.0/bin/allure serve target/allure-results
+```
+
+**No need to run tests first** - this uses existing test results in `target/allure-results/`
+
+This command will:
+1. Generate the Allure HTML report
+2. Start a local web server
+3. Automatically open the report in your browser
+
+**Note:** Press `Ctrl+C` in the terminal to stop the server when done.
+
+---
+
+### Generate Static HTML Report (Optional)
+
+If you want to generate a standalone HTML report that you can share:
+
+#### Windows (PowerShell)
+```powershell
+# Generate report
+./allure-2.29.0/bin/allure.bat generate target/allure-results --clean -o target/allure-report
+
+# Open report in browser (double-click index.html or use command below)
+./allure-2.29.0/bin/allure.bat open target/allure-report
+```
+
+#### Mac/Linux
+```bash
+# Generate report
+./allure-2.29.0/bin/allure generate target/allure-results --clean -o target/allure-report
+
+# Open report in browser
+./allure-2.29.0/bin/allure open target/allure-report
+```
+
+---
+
+### Run Tests and View Reports
+
+#### Windows (PowerShell)
+```powershell
+# Run all tests
+./mvnw.cmd clean test
+
+# View report
+./allure-2.29.0/bin/allure.bat serve target/allure-results
+```
+
+#### Mac/Linux
 ```bash
 # Run tests and serve report
-./mvnw clean test && allure-2.29.0/bin/allure serve target/allure-results
+./mvnw clean test && ./allure-2.29.0/bin/allure serve target/allure-results
 ```
 
 The Allure report includes:
