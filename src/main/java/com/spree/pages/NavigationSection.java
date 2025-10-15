@@ -24,15 +24,20 @@ public class NavigationSection extends BaseSpreePage {
     }
 
     public void clickLogin() {
-        WaitUtils.waitForClickable(loginPageButtonLocator);
-        WebElement loginButton = driver().findElement(loginPageButtonLocator);
+        WebElement loginButton = WaitUtils.waitForClickable(loginPageButtonLocator);
         JavascriptExecutor js = (JavascriptExecutor) driver().getWebDriver();
+
+        // Scroll element into view before clicking
         js.executeScript("arguments[0].scrollIntoView(true);", loginButton);
+
+        // Brief pause needed for scroll animation and JS event handlers to stabilize
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        // Use JS click as standard click doesn't trigger slideover properly
         js.executeScript("arguments[0].click();", loginButton);
     }
 

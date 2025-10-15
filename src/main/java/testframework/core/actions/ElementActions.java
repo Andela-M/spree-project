@@ -21,6 +21,11 @@ public final class ElementActions {
         js.executeScript("arguments[0].click();", element);
     }
 
+    public static void moveAndClick(By locator){
+        WebElement element = WaitUtils.waitForClickable(locator);
+        DriverManager.getDriver().getActions().moveToElement(element).click().perform();
+    }
+
     public static void type(By locator, String value){
         WebElement element = WaitUtils.waitForVisible(locator);
         element.clear();

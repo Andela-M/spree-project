@@ -37,6 +37,10 @@ public class Driver implements WebDriver {
         return this.webDriverWait;
     }
 
+    public Actions getActions() {
+        return this.actions;
+    }
+
     public Boolean isDisposed() {
         return isDisposed;
     }
