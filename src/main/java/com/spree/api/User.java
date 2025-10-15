@@ -15,6 +15,12 @@ public class User {
     @SerializedName("email")
     private String email;
 
+    @SerializedName("first_name")
+    private String firstName;
+
+    @SerializedName("last_name")
+    private String lastName;
+
     @SerializedName("password")
     private String password;
 
