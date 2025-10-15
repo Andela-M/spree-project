@@ -6,22 +6,18 @@ import com.spree.api.User;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import testframework.core.BaseApiTest;
+import testframework.core.BasePlatformApiTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Epic("Spree Platform API")
-@Feature("User Management")
-@Story("User CRUD Operations")
-public class UserCRUD extends BaseApiTest {
+public class UserCRUD extends BasePlatformApiTest {
     private final Faker faker = new Faker();
     PlatformApi platformApi = new PlatformApi();
 
     @Test
+    @Feature("User Management")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Verify user creation via POST /users returns valid user ID")
-    @Issue("SPREE-001")
-    @TmsLink("TC-USER-001")
     void userSuccessfullyCreated() {
         String email = faker.internet().emailAddress();
         String password = faker.internet().password(6, 128, false, false, false);
@@ -38,10 +34,9 @@ public class UserCRUD extends BaseApiTest {
     }
 
     @Test
+    @Feature("User Management")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify GET /users/{id} retrieves created user. FAILS: POST writes to 'spree_users', GET reads from 'spree_admin_users'")
-    @Issue("SPREE-002")
-    @TmsLink("TC-USER-002")
     void userSuccessfullyFetched(){
         String email = faker.internet().emailAddress();
         String password = faker.internet().password(6, 128, false, false, false);
@@ -67,10 +62,9 @@ public class UserCRUD extends BaseApiTest {
     }
 
     @Test
+    @Feature("User Management")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify PATCH /users/{id} updates user. FAILS: PATCH reads from 'spree_admin_users' instead of 'spree_users'")
-    @Issue("SPREE-003")
-    @TmsLink("TC-USER-003")
     void userSuccessfullyUpdated(){
         String email = faker.internet().emailAddress();
         String password = faker.internet().password(6, 128, false, false, false);
@@ -99,10 +93,9 @@ public class UserCRUD extends BaseApiTest {
     }
 
     @Test
+    @Feature("User Management")
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify DELETE /users/{id} deletes user. FAILS: DELETE reads from 'spree_admin_users' instead of 'spree_users'")
-    @Issue("SPREE-004")
-    @TmsLink("TC-USER-004")
     void userSuccessfullyDeleted(){
         String email = faker.internet().emailAddress();
         String password = faker.internet().password(6, 128, false, false, false);

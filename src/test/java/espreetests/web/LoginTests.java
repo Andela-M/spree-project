@@ -9,18 +9,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import testframework.core.BaseWebTest;
 
-@Epic("Spree E-Commerce Web UI")
-@Feature("User Authentication")
-@Story("Customer Login Flow")
 public class LoginTests extends BaseWebTest {
 
     PlatformApi platformApi = new PlatformApi();
 
     @Test
+    @Feature("User Authentication")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Verify user login via web UI - create user via API, then test login form submission and success message")
-    @Issue("SPREE-WEB-002")
-    @TmsLink("TC-WEB-LOGIN-001")
     void customerIsAbleToLogin() {
         String email = UserFields.userEmail();
         String password = UserFields.userPassword();
