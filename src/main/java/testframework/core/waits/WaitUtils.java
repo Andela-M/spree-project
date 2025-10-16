@@ -21,4 +21,12 @@ public final class WaitUtils {
     public static WebElement waitForClickable(By locator) {
         return driverWait().until(ExpectedConditions.elementToBeClickable(locator));
     }
+
+    public static boolean waitForInvisible(By locator) {
+        try {
+            return driverWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
