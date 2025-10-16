@@ -3,13 +3,11 @@ package espreetests.api;
 import com.github.javafaker.Faker;
 import com.spree.api.StoreFrontApi;
 import com.spree.api.User;
+import espreetests.core.BaseStorefrontApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import testframework.core.BaseStorefrontApiTest;
-
 
 public class CustomerAccountCreation extends BaseStorefrontApiTest {
     private Faker faker =  new Faker();

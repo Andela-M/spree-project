@@ -3,10 +3,10 @@ package espreetests.api;
 import com.github.javafaker.Faker;
 import com.spree.api.PlatformApi;
 import com.spree.api.User;
+import espreetests.core.BasePlatformApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import testframework.core.BasePlatformApiTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 

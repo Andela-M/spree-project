@@ -37,6 +37,5 @@ public class StoreFrontApi extends BaseApiService {
         System.out.println("CREATE user response body: " + response.asString());
 
         return response;
-
     }
 }

@@ -1,11 +1,9 @@
-package testframework.core;
+package espreetests.core;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import testframework.auth.TokenClient;
 
-public abstract class BasePlatformApiTest {
-
+public abstract class BaseStorefrontApiTest {
     @AfterAll
     public static void afterAll() {
 
@@ -13,6 +11,7 @@ public abstract class BasePlatformApiTest {
 
     @BeforeAll
     public static void beforeAll() {
-        TokenClient.getPlatformToken();
+
     }
 }
+

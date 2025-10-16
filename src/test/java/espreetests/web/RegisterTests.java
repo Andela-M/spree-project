@@ -1,12 +1,12 @@
 package espreetests.web;
 
+import espreetests.core.BaseSpreeWebTest;
 import espreetests.helper.UserFields;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import testframework.core.BaseWebTest;
 
-public class RegisterTests extends BaseWebTest {
+public class RegisterTests extends BaseSpreeWebTest {
 
     @Test
     @Feature("User Registration")

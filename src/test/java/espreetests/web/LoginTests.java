@@ -2,14 +2,14 @@ package espreetests.web;
 
 import com.spree.api.PlatformApi;
 import com.spree.api.User;
+import espreetests.core.BaseSpreeWebTest;
 import espreetests.helper.UserFields;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import testframework.core.BaseWebTest;
 
-public class LoginTests extends BaseWebTest {
+public class LoginTests extends BaseSpreeWebTest {
 
     PlatformApi platformApi = new PlatformApi();
 
