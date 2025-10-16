@@ -18,6 +18,7 @@ public class NavigationSection extends BaseSpreePage {
     protected By loginPasswordLocator = By.id("user_password");
     protected By loginButtonLocator = By.cssSelector("#login-button");
     protected By flashMessage = By.cssSelector("p.flash-message");
+    protected By shopAllButtonLocator = By.xpath("//div[@class='hidden lg:flex']//a[@data-title='shop all']");
 
     public NavigationSection() {
         super("");
@@ -75,4 +76,6 @@ public class NavigationSection extends BaseSpreePage {
     public boolean isFlashMessageVisible(){
         return ElementActions.isVisible(flashMessage);
     }
+
+    public void clickShopAll(){ ElementActions.click(shopAllButtonLocator);}
 }
