@@ -16,8 +16,7 @@ public class PlatformApi extends BaseApiService {
 
         setRequestSpecification(
                 given()
-                        .baseUri(getBaseUrl())
-                        .basePath(getServicePath())
+                        .baseUri(getServiceUrl())
                         .accept("application/json")
                         .contentType("application/json")
                         .log().all()
