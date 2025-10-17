@@ -50,10 +50,10 @@ chmod +x run-demo.sh && ./run-demo.sh
 The application will be available at: **http://localhost:3000**
 
 **Admin Credentials:**
-- Email: `admin@example.com`
-- Password: `Password123!`
+- Email: `spree@example.com`
+- Password: `spree123`
 
-For detailed setup instructions, see [instructions.md](instructions.md)
+Admin access url: **http://localhost:3000/admin**
 
 ### 2. Configure Test Environment
 
@@ -269,6 +269,10 @@ espree-project/
 **Impact**: Only user creation tests pass; read, update, and delete operations return 404. Test users cannot be cleaned up via API.
 
 **Workaround**: Each test creates unique users via JavaFaker. In production, cleanup would require database access or admin console.
+
+###API Documentation:
+
+-https://spreecommerce.org/docs/api-reference/introduction
 
 ## Support
 
