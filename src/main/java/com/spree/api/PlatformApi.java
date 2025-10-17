@@ -13,11 +13,12 @@ public class PlatformApi extends BaseApiService {
     public PlatformApi() {
         super(PropertiesManager.getConfigProperties().getProperty(FrameworkSettings.BASE_ESPREE_URL.getValue())
                 , PropertiesManager.getConfigProperties().getProperty(FrameworkSettings.PLATFORM_PATH.getValue()));
+
         setRequestSpecification(
                 given()
-                        .baseUri(PropertiesManager.getConfigProperties().getProperty(FrameworkSettings.BASE_ESPREE_URL.getValue()))
-                        .basePath(PropertiesManager.getConfigProperties().getProperty(FrameworkSettings.PLATFORM_PATH.getValue()))
-                        .accept("application/vnd.api+json")
+                        .baseUri(getBaseUrl())
+                        .basePath(getServicePath())
+                        .accept("application/json")
                         .contentType("application/json")
                         .log().all()
         );
